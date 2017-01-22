@@ -15,12 +15,30 @@
 # limitations under the License.
 #
 import webapp2
+import random
+
+def thequote():
+    choices = [
+    "Keep calm and breathe.",
+    "Your day will be sunny",
+    "Join a sports activity!",
+    "Beware of stubbing your toe.",
+    "You will win the lottery :P"
+    ]
+    return choices[random.randint(0, 4)]
+
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        #give header, number, and fortune from list
+        header = "<h1>Fortune Cookie</h1>"
+        luckyquote = "Your fortune: " + "<em>" + thequote() + "</em>"
+        luckynumb = "Here is your lucky number: " + "<strong>" + str(random.randint(1, 100)) + "</strong>"
 
-
+        #also the button to reload
+        newbutton = "<a href='.''><button>New Fortune</button></a>"
+        content = header + "<p>" + luckyquote + "</p>" + "<p>" + luckynumb + "</p>" + newbutton
+        self.response.write(content)
 
 
 app = webapp2.WSGIApplication([
